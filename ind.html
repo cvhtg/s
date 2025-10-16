@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Звуки для сесії</title>
+    <link rel="icon" type="image/x-icon" href="./img/favicon.png">
+    
+    <style>
+        /* Оригінальні стилі таблиці та посилань */
+        audio{
+            width:100%;
+        }
+ 
+
+        /* СТИЛІ ДЛЯ ВАРІАНТА 1 (Play/Pause) */
+        .play-btn {
+            font-size: 1.1rem; 
+            padding: 12px 20px; 
+            background-color: #4CAF50; 
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: block; 
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .play-btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Кнопка "Грає" (червоний) */
+        .playing {
+            background-color: #f44336 !important; 
+        }
+
+        .playing:hover {
+            background-color: #d32f2f !important; 
+        }
+
+        /* СТИЛІ ДЛЯ ВАРІАНТА 2 (Грати/Стоп) */
+        .action-btn {
+            font-size: 1.1rem; 
+            padding: 10px 15px; 
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 49%; 
+            box-sizing: border-box; 
+        }
+
+        .play-action {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .stop-action {
+            background-color: #f44336; 
+            color: white;
+            float: right; 
+            opacity: 0.5; 
+        }
+
+        .action-btn.active-stop {
+            opacity: 1; 
+        }
+
+
+        	table {
+  border-collapse: collapse;
+  border: 2px solid rgb(140 140 140);
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  margin: auto; /* Вирівнюємо таблицю по центру вікна */
+  width:100%;
+}
+
+caption {
+  caption-side: bottom;
+  padding: 10px;
+  font-weight: bold;
+}
+
+thead,
+tfoot {
+  background-color: rgb(228 240 245);
+}
+
+th,
+td {
+  border: 1px solid rgb(160 160 160);
+  padding: 8px 10px;
+}
+
+td:last-of-type {
+  text-align: center;
+}
+
+tbody > tr:nth-of-type(even) {
+  background-color: rgb(237 238 242);
+}
+
+tfoot th {
+  text-align: right;
+}
+
+tfoot td {
+  font-weight: bold;
+}
+a {
+  outline: none;
+  text-decoration: none;
+  padding: 2px 1px 0;
+}
+
+a:link {
+  color: #265301;
+}
+
+a:visited {
+  color: #437a16;
+}
+
+a:focus {
+  border-bottom: 1px solid;
+  background: #bae498;
+}
+
+a:hover {
+  border-bottom: 1px solid;
+  background: #cdfeaa;
+}
+
+a:active {
+  background: #265301;
+  color: #cdfeaa;
+}
+    </style>
+  </head>
+  <body>
+
+  <table id="original_table">
+  <caption>
+    Оригінальний варіант (стандартні плеєри)
+  </caption>
+  <thead>
+    <tr>
+      <th scope="col">Звук</th>
+      <th scope="col">Скачати</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">
+          <p><b>Вшанування пам'яті загиблих - загальнонаціональна ХВИЛИНА МОВЧАННЯ в Україні:</b></p>
+          <audio controls>
+            <source src="audio/MINUTE_OF_SILENCE.mp3" type="audio/mpeg">
+            Тег audio не підтримується вашим браузером. 
+          </audio>
+      </th>
+      <td><a href="audio/MINUTE_OF_SILENCE.mp3" download>Скачати</a></td>
+    </tr>
+    <tr>
+      <th scope="row">
+          <p><b>DZIDZIO - Гімн України:</b></p>
+          <audio controls>
+            <source src="audio/DZIDZIO_Anthem of Ukraine.mp3" type="audio/mpeg">
+            Тег audio не підтримується вашим браузером. 
+          </audio>
+      </th>
+      <td><a href="audio/DZIDZIO_Anthem of Ukraine.mp3" download>Скачати</a></td>
+    </tr>
+  </tbody>
+</table>
+<table id="play_pause_table">
+    <caption>
+    Варіант 1: Одна велика кнопка (Play/Pause). Червона, коли грає.
+  </caption>
+  <thead>
+    <tr>
+      <th scope="col">Звук</th>
+      <th scope="col">Скачати</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">
+          <p><b>Вшанування пам'яті загиблих - загальнонаціональна ХВИЛИНА МОВЧАННЯ в Україні:</b></p>
+          <audio id="silence_audio">
+            <source src="audio/MINUTE_OF_SILENCE.mp3" type="audio/mpeg">
+            Тег audio не підтримується вашим браузером. 
+          </audio>
+          <button class="play-btn" data-audio-id="silence_audio">▶️ ХВИЛИНА МОВЧАННЯ</button>
+      </th>
+      <td><a href="audio/MINUTE_OF_SILENCE.mp3" download>Скачати</a></td>
+    </tr>
+
+    <tr>
+      <th scope="row">
+          <p><b>DZIDZIO - Гімн України:</b></p>
+          <audio id="anthem_audio">
+            <source src="audio/DZIDZIO_Anthem of Ukraine.mp3" type="audio/mpeg">
+            Тег audio не підтримується вашим браузером. 
+          </audio>
+          <button class="play-btn" data-audio-id="anthem_audio">▶️ ГРАТИ ГІМН</button>
+      </th>
+      <td><a href="audio/DZIDZIO_Anthem of Ukraine.mp3" download>Скачати</a></td>
+    </tr>
+  </tbody>
+</table>
+<table id="play_stop_table">
+    <caption>
+    Варіант 2: Дві окремі кнопки (Грати / Стоп). Стоп червона, коли грає.
+  </caption>
+ <thead>
+    <tr>
+      <th scope="col">Звук</th>
+      <th scope="col">Скачати</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">
+          <p><b>Вшанування пам'яті загиблих - загальнонаціональна ХВИЛИНА МОВЧАННЯ в Україні:</b></p>
+          <audio id="silence_audio_2">
+            <source src="audio/MINUTE_OF_SILENCE.mp3" type="audio/mpeg">
+            Тег audio не підтримується вашим браузером. 
+          </audio>
+          <button class="action-btn play-action" data-audio-id="silence_audio_2">▶️ ГРАТИ</button>
+          <button class="action-btn stop-action" data-audio-id="silence_audio_2">⏹️ СТОП</button>
+      </th>
+      <td><a href="audio/MINUTE_OF_SILENCE.mp3" download>Скачати</a></td>
+    </tr>
+
+    <tr>
+      <th scope="row">
+          <p><b>DZIDZIO - Гімн України:</b></p>
+          <audio id="anthem_audio_2">
+            <source src="audio/DZIDZIO_Anthem of Ukraine.mp3" type="audio/mpeg">
+            Тег audio не підтримується вашим браузером. 
+          </audio>
+          <button class="action-btn play-action" data-audio-id="anthem_audio_2">▶️ ГРАТИ</button>
+          <button class="action-btn stop-action" data-audio-id="anthem_audio_2">⏹️ СТОП</button>
+      </th>
+      <td><a href="audio/DZIDZIO_Anthem of Ukraine.mp3" download>Скачати</a></td>
+    </tr>
+</tbody>
+<tfoot>
+    <tr>
+      <th scope="row" colspan="2">Все для праці:)</th>
+    </tr>
+  </tfoot>
+</table>
+<script>
+    // СКРИПТ ДЛЯ ВАРІАНТА 1 (Play/Pause)
+    const pp_buttons = document.querySelectorAll('#play_pause_table .play-btn');
+
+    pp_buttons.forEach(button => {
+        const audioId = button.getAttribute('data-audio-id');
+        const audio = document.getElementById(audioId);
+        
+        button.addEventListener('click', () => {
+            if (audio.paused) {
+                // Ставимо на паузу всі інші аудіо та скидаємо їх колір
+                document.querySelectorAll('audio').forEach(otherAudio => {
+                    if (otherAudio !== audio) {
+                        otherAudio.pause();
+                        // Шукаємо кнопку для іншого аудіо
+                        const otherButton = document.querySelector(`.play-btn[data-audio-id="${otherAudio.id}"]`);
+                        if(otherButton) {
+                            otherButton.classList.remove('playing');
+                            otherButton.textContent = otherButton.getAttribute('data-initial-text');
+                        }
+                    }
+                });
+
+                // ГРАТИ:
+                audio.play();
+                button.classList.add('playing'); // Робимо кнопку червоною
+                button.textContent = '⏸️ ПАУЗА'; 
+
+            } else {
+                // ПАУЗА:
+                audio.pause();
+                button.classList.remove('playing'); // Робимо кнопку зеленою
+                button.textContent = button.getAttribute('data-initial-text');
+            }
+        });
+        
+        // Зберігаємо початковий текст кнопки
+        button.setAttribute('data-initial-text', button.textContent);
+        
+        // Обробники для скидання кольору, якщо аудіо закінчилося
+        audio.addEventListener('ended', () => {
+            button.classList.remove('playing');
+            button.textContent = button.getAttribute('data-initial-text');
+        });
+    });
+
+    // СКРИПТ ДЛЯ ВАРІАНТА 2 (Грати/Стоп)
+    const playButtons = document.querySelectorAll('#play_stop_table .play-action');
+    const stopButtons = document.querySelectorAll('#play_stop_table .stop-action');
+
+    function resetAllPlayStop() {
+        // Ставимо на паузу всі аудіо, які керуються цим скриптом
+        document.querySelectorAll('#play_stop_table audio').forEach(a => a.pause());
+        // Скидаємо стилі всіх кнопок "СТОП"
+        stopButtons.forEach(b => b.classList.remove('active-stop'));
+    }
+
+    // Обробник для кнопки ГРАТИ
+    playButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const audioId = button.getAttribute('data-audio-id');
+            const audio = document.getElementById(audioId);
+            const stopButton = document.querySelector(`.stop-action[data-audio-id="${audioId}"]`);
+
+            // Скидаємо все
+            resetAllPlayStop(); 
+
+            // Запускаємо нове аудіо
+            audio.play();
+            stopButton.classList.add('active-stop'); 
+        });
+    });
+
+    // Обробник для кнопки СТОП
+    stopButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const audioId = button.getAttribute('data-audio-id');
+            const audio = document.getElementById(audioId);
+            
+            audio.pause();
+            audio.currentTime = 0; // Повертаємо на початок
+            button.classList.remove('active-stop'); 
+        });
+    });
+    
+    // Обробник для автоматичного скидання, коли аудіо закінчується
+    document.querySelectorAll('#play_stop_table audio').forEach(audio => {
+        audio.addEventListener('ended', () => {
+            const stopButton = document.querySelector(`.stop-action[data-audio-id="${audio.id}"]`);
+            if (stopButton) {
+                stopButton.classList.remove('active-stop');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
